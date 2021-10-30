@@ -1,17 +1,20 @@
 // init speech synth
 const message = new SpeechSynthesisUtterance();
+let voices = [];
 
 //Get avolilabel voice
 
 speechSynthesis.addEventListener("vaiceschanged", () => {
-  const voices = speechSynthesis.getVoices();
+  voices = speechSynthesis.getVoices();
   loadVoices(voices);
   //console.log(voices);
 });
 
 //dow elements
 const quotesElement = document.querySelector(".quotes");
-const selectElement = document.querySelector(".select");
+const selectElement = document.querySelector(".custom_select");
+const custom = document.querySelector(".custom");
+const textareaElement = document.querySelector(".custom_textarea");
 
 // rellenar con los voces selccionadas en
 function loadVoices(voices) {
@@ -19,11 +22,26 @@ function loadVoices(voices) {
     const { name, lang } = voice;
     const optionElement = document.createElement("option");
     optionElement.innerText = `${name} - ${lang}`;
-    optionElement.value = voice;
+    optionElement.value = name;
     selectElement.appendChild(optionElement);
   });
 }
 
+// lista for change event on select
+//function changeVoice
+selectElement.addEventListener("change", (event) => {
+  const name = event.target.value;
+  const voice = voices.find((voice) => voice.name === name);
+  message.voice = voice;
+});
+
+//Liste for form submission
+custom.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const customText = textareaElement.value;
+  message.text = customText;
+  speechSynthesis.speak(message);
+});
 // App dato
 const quotes = [
   {
@@ -89,8 +107,8 @@ const quotes = [
 ];
 
 // Lood qoutes in the Down
-quotes.forEach((qoute) => {
-  const { text, author } = qoute;
+quotes.forEach((quote) => {
+  const { text, author } = quote;
   //console.log(text, author);
   const qouteTemplate = `
     <section class="quote">

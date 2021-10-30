@@ -12,11 +12,27 @@ body {
 }
 .main {
   width: 75vw;
-  margin: 2rem auto;
+  margin: 3rem auto;
 }
-.select {
+.title {
+  text-align: center;
+}
+.custom {
+  margin-bottom: 2rem;
+}
+.custon_select {
   width: 100%;
   padding: 0.5rem 1 rem;
+}
+.custon_textarea {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+.custon_submit {
+  width: 100%;
+  border: none;
+  cursor: pointer;
 }
 .quotes {
   column-count: 4;
